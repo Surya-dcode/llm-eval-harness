@@ -1,0 +1,44 @@
+# Extract four fields from short, made-up invoice snippets.
+# Run it with no API keys:  evalh run examples/extract_invoice/task.yaml
+name: extract_invoice
+description: Pull vendor, date, total and currency out of an invoice snippet as JSON.
+
+system_prompt: |
+  You extract structured data from invoices. Reply with one JSON object and nothing else.
+
+# double_brace means Jinja-style {{ name }} placeholders filled from each case's vars.
+template_syntax: double_brace
+prompt_template: |
+  Extract these fields from the invoice below:
+  - vendor: the company that issued the invoice, as written
+  - date: the issue date in YYYY-MM-DD format
+  - total: the final amount due, as a number without symbols or thousands separators
+  - currency: the ISO 4217 code, for example USD
+
+  Invoice:
+  {{ invoice }}
+
+cases_file: cases.jsonl
+repeats: 3
+
+scorers:
+  - type: json_valid
+    schema:
+      type: object
+      required: [vendor, date, total, currency]
+      properties:
+        vendor: {type: string}
+        date: {type: string, pattern: "^\\d{4}-\\d{2}-\\d{2}$"}
+        total: {type: number}
+        currency: {type: string, pattern: "^[A-Z]{3}$"}
+  - type: field_match
+    fields: [vendor, date, total, currency]
+    numeric_tolerance: 0.005
+    weight: 3
+
+models_file: models.yaml
+
+execution:
+  concurrency: 4
+  timeout_s: 60
+  max_retries: 3

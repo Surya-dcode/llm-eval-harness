@@ -1,0 +1,66 @@
+# Models to compare. Prices are per 1 million tokens and you must supply them.
+#
+# The prices below are PLACEHOLDERS, not real prices. Before comparing real
+# models, look up each provider's current pricing and fill it in here.
+models:
+  # Two fake models, so the example runs with no API keys and no network.
+  - id: fake-careful
+    provider: fake
+    model: fake-careful-v1
+    price_in_per_mtok: 1.00    # placeholder
+    price_out_per_mtok: 4.00   # placeholder
+    params:
+      seed: 7
+      accuracy: 0.95
+      latency_ms: [300, 900]
+
+  - id: fake-quick
+    provider: fake
+    model: fake-quick-v1
+    price_in_per_mtok: 0.10    # placeholder
+    price_out_per_mtok: 0.40   # placeholder
+    params:
+      seed: 11
+      accuracy: 0.85
+      wrong_cases: [inv-07]
+      malformed_cases: [inv-03]
+      prose_wrap: true
+      latency_ms: [80, 250]
+
+  # Real providers. Uncomment, set the model name and current prices, and
+  # export the API key variable named in api_key_env.
+  #
+  # - id: openai-small
+  #   provider: openai_compatible
+  #   model: your-openai-model-name
+  #   base_url: https://api.openai.com/v1
+  #   api_key_env: OPENAI_API_KEY
+  #   price_in_per_mtok: 0.0     # fill in
+  #   price_out_per_mtok: 0.0    # fill in
+  #   params: {temperature: 0}
+  #
+  # - id: groq-llama
+  #   provider: openai_compatible
+  #   model: your-groq-model-name
+  #   base_url: https://api.groq.com/openai/v1
+  #   api_key_env: GROQ_API_KEY
+  #   rate_group: groq
+  #   price_in_per_mtok: 0.0     # fill in
+  #   price_out_per_mtok: 0.0    # fill in
+  #   params: {temperature: 0}
+  #
+  # - id: anthropic-model
+  #   provider: anthropic          # pip install 'llm-eval-harness[anthropic]'
+  #   model: your-anthropic-model-name
+  #   api_key_env: ANTHROPIC_API_KEY
+  #   price_in_per_mtok: 0.0     # fill in
+  #   price_out_per_mtok: 0.0    # fill in
+  #   params: {temperature: 0, max_tokens: 300}
+  #
+  # - id: local-ollama
+  #   provider: openai_compatible
+  #   model: llama3.2
+  #   base_url: http://localhost:11434/v1   # no api_key_env needed
+  #   rate_group: local
+  #   price_in_per_mtok: 0.0
+  #   price_out_per_mtok: 0.0

@@ -1,0 +1,3 @@
+model_id,provider,model,calls,failures,mean_score,score_stdev,pass_rate,p50_latency_ms,p95_latency_ms,mean_latency_ms,input_tokens,output_tokens,approx_token_calls,total_cost_usd,cost_per_call_usd,judge_cost_usd,cached_calls
+fake-careful,fake,fake-careful-v1,30,0,0.9875,0.0467707,0.933333,596.852,859.121,627.173,3930,706,0,0.00675400,0.00022513,0.00000000,0
+fake-quick,fake,fake-quick-v1,30,0,0.85,0.294746,0.633333,186.745,236.471,180.522,3930,919,0,0.00076060,0.00002535,0.00000000,0
